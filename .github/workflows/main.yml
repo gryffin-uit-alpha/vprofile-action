@@ -82,8 +82,8 @@ jobs:
             - name: Update kubeconfig
               run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
             
-            - name: Print kubeconfig
-              run: cat ~/.kube/config
+            # - name: Print kubeconfig
+            #   run: cat ~/.kube/config
             
             - name: login to ECR
               id: login-ecr
@@ -98,7 +98,6 @@ jobs:
                 cluster-name: ${{ env.EKS_CLUSTER }}
                 chart-path: ./helm/gitOpsChart
                 namespace: default
-                values: |
-                  image: ${{ secrets.REGISTRY }}/${{ env.ECR_REPOSITORY }}
-                  imagetag: ${{ github.run_number }}
+                values: "image=${{ secrets.REGISTRY }}/${{ env.ECR_REPOSITORY }},imagetag=${{ github.run_number }}"
+
                 name: gitOps-stack
