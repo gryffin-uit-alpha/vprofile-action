@@ -105,4 +105,4 @@ jobs:
                 chart-path: ./helm/gitOpsChart
                 namespace: default
                 values: "image=${{ secrets.REGISTRY }}/${{ env.ECR_REPOSITORY }},imagetag=${{ github.run_number }}"
-                name: gitOps-stack
+                name: gitops-stack
