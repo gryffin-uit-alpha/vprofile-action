@@ -33,7 +33,6 @@ jobs:
                 -Dsonar.login=${{ secrets.SONAR_TOKEN }}
                 -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY}}
                 -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-                -Dsonar.organizationKey=${{ secrets.SONAR_ORGANIZATION_KEY }}
                 -Dsonar.sources=./src
                 -Dsonar.junit.reportPaths=./target/surefire-reports
                 -Dsonar.jacoco.reportPaths=./target/jacoco.exec
@@ -57,11 +56,11 @@ jobs:
             - name: Build, tag, and push image to Amazon ECR
               uses: appleboy/docker-ecr-action@master
               with:
-                aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                aws_region: ${{ env.AWS_REGION }}
-                repository: ${{ env.ECR_REPOSITORY }}
-                image_tag: latest, ${{ github.run_number }}
+                access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                region: ${{ env.AWS_REGION }}
+                repo: ${{ env.ECR_REPOSITORY }}
+                tags: latest, ${{ github.run_number }}
                 daemon_off: false
                 dockerfile: ./Dockerfile
                 context: ./
